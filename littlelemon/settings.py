@@ -75,8 +75,8 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 #   export DB_HOST=127.0.0.1
 #   export DB_PORT=3306
 #
-# Create the database first in MySQL:
-#   CREATE DATABASE littlelemon;
+# For cloud MySQL that requires SSL (e.g. TiDB Cloud), also set:
+#   export DB_SSL_CA=certs/isrgrootx1.pem
 #
 # If you just want to try the project quickly without MySQL installed,
 # set DB_ENGINE=sqlite in your environment instead.
@@ -89,6 +89,13 @@ if os.environ.get('DB_ENGINE') == 'sqlite':
         }
     }
 else:
+    # DB_SSL_CA (optional) points at a CA cert file relative to this
+    # project's root — needed for cloud MySQL like TiDB Cloud.
+    db_options = {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+    ssl_ca_path = os.environ.get('DB_SSL_CA')
+    if ssl_ca_path:
+        db_options['ssl'] = {'ca': str(BASE_DIR / ssl_ca_path)}
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -97,9 +104,7 @@ else:
             'PASSWORD': os.environ.get('DB_PASSWORD', ''),
             'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
             'PORT': os.environ.get('DB_PORT', '3306'),
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
+            'OPTIONS': db_options,
         }
     }
 
