@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Little Lemon Restaurant</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fdfdfd; color: #333; margin: 0; }
+        header { background: #495e57; color: #f4ce14; padding: 2rem; text-align: center; }
+        main { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+        h1 { margin: 0; }
+        code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+        ul { line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Little Lemon</h1>
+        <p>Table booking &amp; menu API</p>
+    </header>
+    <main>
+        <p>This page is served by Django as static HTML content.</p>
+        <p>Available API endpoints:</p>
+        <ul>
+            <li><code>/api/menu/</code> - view/manage menu items</li>
+            <li><code>/api/bookings/</code> - view/manage table bookings (auth required)</li>
+            <li><code>/api/registration/</code> - register a new user</li>
+            <li><code>/api/token-auth/</code> - obtain an auth token</li>
+        </ul>
+    </main>
+</body>
+</html>
